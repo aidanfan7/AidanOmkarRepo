@@ -1,0 +1,9 @@
+STUDENT,101,Alice Chen
+GRADE,101,Homework 1,88.0
+GRADE,101,Quiz 1,92.0
+STUDENT,102,Bob Kim
+GRADE,102,Homework 1,75.0
+STUDENT,103,Carol Rivera
+GRADE,103,Homework 1,90.0
+GRADE,103,Quiz 1,85.0
+GRADE,103,Midterm,88.5
