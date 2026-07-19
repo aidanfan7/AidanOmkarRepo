@@ -23,12 +23,12 @@ public class GradebookApp {
                     System.out.println ("Enter Choice: ");
                     choice = input.nextInt();
                 }catch (InputMismatchException e){
-                    System.out.println("Invalid input1. Please enter a number from 1-8.");
+                    System.out.println("Invalid input. Please enter a number from 1-8.");
                     input.nextLine();
                     continue;
                 }
             if (choice < 0 || choice > 8){
-                System.out.println("Invalid input2. Please enter a number from 1-8.");
+                System.out.println("Invalid input. Please enter a number from 1-8.");
                 continue;
             }
             if (choice == 8){
@@ -44,12 +44,12 @@ public class GradebookApp {
                 case 1:
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
-                    System.out.println("Enter Student name: ");
-                    name = input.next().trim();
                     if (id <= 0){
                         System.out.println("Student id must be greater than 0");
                         continue;
                     }
+                    System.out.println("Enter Student name: ");
+                    name = input.next().trim();
                     if(gradebook.addStudent(id, name)){
                         System.out.println("Student addes successfully");
                     }
@@ -58,16 +58,20 @@ public class GradebookApp {
                     }
                     continue;
                 case  2:
+                    if (gradebook.getSize() <= 0){
+                        System.out.println("No Students yet, cannot add a grade");
+                        continue;
+                    }
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
-                    System.out.println("Enter Grade Title: ");
-                    gradetitle = input.next().trim();
-                    System.out.println("Enter Score: ");
-                    gradescore = input.nextDouble();
                     if (gradebook.findById(id) == null){
                         System.out.println("No Student found with id " + id + ". Grade was not added.");
                         continue;
                     }
+                    System.out.println("Enter Grade Title: ");
+                    gradetitle = input.next().trim();
+                    System.out.println("Enter Score: ");
+                    gradescore = input.nextDouble();
                     if (gradescore < 0.0 || gradescore > 100.0){
                         System.out.println("Invalid Score. Score must be between 0.0 and 100.0");
                         continue;
