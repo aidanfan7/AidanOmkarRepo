@@ -12,6 +12,10 @@ public class GradebookManager {
         students = new ArrayList<>();
     }
 
+    public int getSize(){
+        return students.size();
+    }
+
     public GradebookStudent findById(int id) {
         for (GradebookStudent s : students) {
             if (s.getId() == id) {

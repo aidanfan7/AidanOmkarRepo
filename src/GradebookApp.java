@@ -76,6 +76,10 @@ public class GradebookApp {
                     }
                     continue;
                 case 3:
+                    if (gradebook.getSize() <= 0){
+                        System.out.println("No Students yet, cannot print them");
+                        continue;
+                    }
                     gradebook.printAll();
                 case 4:
                     System.out.println("Enter Student ID: ");
@@ -110,6 +114,10 @@ public class GradebookApp {
                     gradebook.loadData("data/sampledata.txt");
                     continue;
                 case 7:
+                    if (gradebook.getSize() <= 0){
+                        System.out.println("No Students yet, cannot load them");
+                        continue;
+                    }
                     try{
                         gradebook.saveData("data/sampledata.txt");
                         System.out.println("Gradebook saved Secessfully");
