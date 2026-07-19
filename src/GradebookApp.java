@@ -23,12 +23,12 @@ public class GradebookApp {
                     System.out.println ("Enter Choice: ");
                     choice = input.nextInt();
                 }catch (InputMismatchException e){
-                    System.out.println("Invalid input1. Please enter a number from 1-8.");
+                    System.out.println("Invalid input. Please enter a number from 1-8.");
                     input.nextLine();
                     continue;
                 }
             if (choice < 0 || choice > 8){
-                System.out.println("Invalid input2. Please enter a number from 1-8.");
+                System.out.println("Invalid input. Please enter a number from 1-8.");
                 continue;
             }
             if (choice == 8){
