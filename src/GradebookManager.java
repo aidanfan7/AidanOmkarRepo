@@ -67,6 +67,7 @@ public class GradebookManager {
     public void loadData(String path){
         int studentsloaded = 0;
         int gradesloaded = 0;
+        int wronginputs = 0;
         Scanner input;
         try{
             input = new Scanner (new File(path));
@@ -80,7 +81,7 @@ public class GradebookManager {
             if(line.isEmpty() ){
                 continue;
             }
-            if(line.startsWith("Student")){
+            if(line.toUpperCase().startsWith("STUDENT")){
                 try{
                     String[] parts = line.split(",");
                     String type = parts[0].trim();
@@ -89,28 +90,40 @@ public class GradebookManager {
                     addStudent(id, name);
                     studentsloaded++;
                 }catch(Exception e){
-                    System.out.println("not valid inputgood line" + line);
+                    System.out.println("not a valid input line: " + line);
+                    wronginputs++;
                 }
             }
-            else if(line.startsWith("Grade")){
+            else if(line.toUpperCase().startsWith("GRADE")){
                 try{
                     String[] parts = line.split(",");
                     String type = parts[0].trim();
                     int id = Integer.parseInt(parts[1].trim());
                     String name = parts[2].trim();
                     double score = Double.parseDouble(parts[3].trim());
-                    findById(id).addGrade(new GradeItem(name, score));
+                    GradebookStudent student = findById(id);
+                    if(student == null){
+                        System.out.println("not a valid input line: " + line);
+                        wronginputs++;
+                        continue;
+                    }
+                    student.addGrade(new GradeItem(name, score));
                     gradesloaded++;
                 }catch(Exception e){
-                    System.out.println("not valid inputgood line" + line);
+                    System.out.println("not a valid input line: " + line);
+                    wronginputs++;
                 }
             }
-            
+            else{
+                System.out.println("not a valid input line: " + line);
+                wronginputs++;
+            }
         }
         input.close();
         System.out.println("Data Loaded Succesfully");
         System.out.println("Students loaded: " + studentsloaded);
         System.out.println("Grades loaded: " + gradesloaded);
+        System.out.println("Wrong inputs: " + wronginputs);
     }
     public void saveData(String path) throws IOException{
         PrintWriter out = new PrintWriter(path);
