@@ -48,7 +48,13 @@ public class GradebookStudent {
     }
 
     //have not overriden toString yet(need to do)
-
+    @Override
+    public String toString(){
+        if (averageGrade() == 0.0){
+            return getId() + " - " + getName() + " - " + averageGrade() + " (no rgades yet)";
+        }
+        return getId() + " - " + getName() + " - " + averageGrade(); 
+    }
 
     
 }

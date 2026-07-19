@@ -1,5 +1,10 @@
 package src;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 public class GradebookManager {
     private ArrayList<GradebookStudent> students;
     
@@ -38,5 +43,76 @@ public class GradebookManager {
             }
         }
         return results;
+    }
+
+    public void printAll(){
+        System.out.println("All Students: ");
+        for (GradebookStudent student : students) {
+            System.out.println(student.toString());
+        }
+    }
+    // option 2 adds a grade to a student in the arraylist
+    public void addGradeToStudent(int studentid, String gradetitle, double grade){
+        if(findById(studentid) == null){
+            System.out.println("No student found with ID " + studentid + ". Grade was not added.");
+            return;
+        }
+        GradeItem newGrade = new GradeItem(gradetitle, grade);
+        findById(studentid).addGrade(newGrade);
+    }
+    public void loadData(String path){
+        int studentsloaded = 0;
+        int gradesloaded = 0;
+        Scanner input;
+        try{
+            input = new Scanner (new File(path));
+        }catch(FileNotFoundException e){
+            System.out.println("Could not find File: " + path);
+            System.out.println("Gradebook was not changed");
+            return;
+        }
+        while(input.hasNextLine()){
+            String line = input.nextLine().trim();
+            if(line.isEmpty() ){
+                continue;
+            }
+            if(line.startsWith("Student")){
+                try{
+                    String[] parts = line.split(",");
+                    String type = parts[0].trim();
+                    int id = Integer.parseInt(parts[1].trim());
+                    String name = parts[2].trim();
+                    addStudent(id, name);
+                    studentsloaded++;
+                }catch(Exception e){
+                    System.out.println("not valid inputgood line" + line);
+                }
+            }
+            else if(line.startsWith("Grade")){
+                try{
+                    String[] parts = line.split(",");
+                    String type = parts[0].trim();
+                    int id = Integer.parseInt(parts[1].trim());
+                    String name = parts[2].trim();
+                    double score = Double.parseDouble(parts[3].trim());
+                    findById(id).addGrade(new GradeItem(name, score));
+                    gradesloaded++;
+                }catch(Exception e){
+                    System.out.println("not valid inputgood line" + line);
+                }
+            }
+            
+        }
+        input.close();
+        System.out.println("Data Loaded Succesfully");
+        System.out.println("Students loaded: " + studentsloaded);
+        System.out.println("Grades loaded: " + gradesloaded);
+    }
+    public void saveData(String path) throws IOException{
+        PrintWriter out = new PrintWriter(path);
+        for (GradebookStudent student : students) {
+            out.println(student.toString());
+        }
+        out.close();
     }
 }
