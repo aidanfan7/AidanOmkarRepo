@@ -128,7 +128,10 @@ public class GradebookManager {
     public void saveData(String path) throws IOException{
         PrintWriter out = new PrintWriter(path);
         for (GradebookStudent student : students) {
-            out.println(student.toString());
+            out.println("STUDENT," + student.getId() + "," + student.getName());
+            for (GradeItem g : student.getGrades()) {
+                out.println("GRADE," + student.getId() + "," + g.getTitle() + "," + g.getScore());
+            }
         }
         out.close();
     }

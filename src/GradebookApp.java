@@ -82,6 +82,7 @@ public class GradebookApp {
                         continue;
                     }
                     gradebook.printAll();
+                    continue;
                 case 4:
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
