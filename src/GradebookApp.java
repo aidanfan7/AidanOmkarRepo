@@ -9,7 +9,6 @@ public class GradebookApp {
         Scanner input = new Scanner(System.in);
         GradebookManager gradebook = new GradebookManager();
         int choice = 0;
-        // try {
         while(true){
                 try{
                     System.out.println ("Choices: ");
@@ -137,9 +136,6 @@ public class GradebookApp {
             continue;
         }
         }
-    // }catch (InputMismatchException e){
-    //     System.out.println("Invalid menu choice");
-    // }
         input.close();
     }
 }
