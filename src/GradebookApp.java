@@ -58,6 +58,10 @@ public class GradebookApp {
                     }
                     continue;
                 case  2:
+                    if (gradebook.getSize() <= 0){
+                        System.out.println("No Students yet, cannot add a grade");
+                        continue;
+                    }
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
                     if (gradebook.findById(id) == null){
