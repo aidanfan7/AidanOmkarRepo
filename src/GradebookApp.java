@@ -1,5 +1,5 @@
 package src;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class GradebookApp {
@@ -24,31 +24,103 @@ public class GradebookApp {
                 System.out.println("Invalid input. Please enter a number from 1-8.");
                 continue;
             }
+            if (choice < 1 || choice > 8){
+                System.out.println("Invalid input. Please enter a number from 1-8.");
+                continue;
+            }
             int id;
             String name;
             String gradetitle;
             double gradescore;
+            try{
             switch (choice){
                 case 1:
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
                     System.out.println("Enter Student name: ");
                     name = input.next().trim();
-                    gradebook.addStudent(id, name);
+                    if (id <= 0){
+                        System.out.println("Student id must be greater than 0");
+                        continue;
+                    }
+                    if(gradebook.addStudent(id, name)){
+                        System.out.println("Student addes successfully");
+                    }
+                    else{
+                        System.out.println("A Student with id " + id + " already exists. Student was not added.");
+                    }
+                    continue;
                 case  2:
                     System.out.println("Enter Student ID: ");
                     id = input.nextInt();
                     System.out.println("Enter Grade Title: ");
                     gradetitle = input.next().trim();
                     System.out.println("Enter Score: ");
+                    gradescore = input.nextDouble();
+                    if (gradebook.findById(id) == null){
+                        System.out.println("No Student found with id " + id + ". Grade was not added.");
+                        continue;
+                    }
+                    if (gradescore < 0.0 || gradescore > 100.0){
+                        System.out.println("Invalid Score. Score must be between 0.0 and 100.0");
+                        continue;
+                    }
+                    else{
+                        gradebook.findById(id).addGrade(new GradeItem(gradetitle, gradescore));
+                    }
+                    continue;
+                case 3:
+                    gradebook.printAll();
+                case 4:
+                    System.out.println("Enter Student ID: ");
                     id = input.nextInt();
-                    GradebookStudent g = gradebook.findById(id);
-
+                    if (gradebook.findById(id) == null){
+                        System.out.println("No student found with id " + id);
+                        continue;
+                    }
+                    else{
+                        System.out.println("Student Details: ");
+                        System.out.println("ID: " + gradebook.findById(id).getId());
+                        System.out.println("Name: " + gradebook.findById(id).getName());
+                        System.out.println();
+                        System.out.println("Grades: ");
+                        gradebook.findById(id).printGrades();
+                    }
+                    continue;
+                case 5:
+                    System.out.println("Enter Student ID: ");
+                    id = input.nextInt();
+                    if (gradebook.findById(id) == null){
+                        System.out.println("No student found with id " + id);
+                        continue;
+                    }
+                    else{
+                        System.out.println("Found: ");
+                        System.out.println(gradebook.findById(id).getId()  + " - " + gradebook.findById(id).getName());
+                        System.out.println ("Average: " + gradebook.findById(id).averageGrade());
+                    }
+                    continue;
+                case 6:
+                    gradebook.loadData("data/sampledata.txt");
+                    continue;
+                case 7:
+                    try{
+                        gradebook.saveData("data/sampledata.txt");
+                        System.out.println("Gradebook saved Secessfully");
+                        continue;
+                    }catch(IOException e){
+                        System.out.println("Gradebook could not save;");
+                        continue;
+                    }
                 case 8:
+                    System.out.println("Goodbye");
                     break;
-
             }
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input for the field, retry action");
+            continue;
         }
-        input.close();
+            input.close();
+        }
     }
 }

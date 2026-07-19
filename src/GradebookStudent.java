@@ -55,6 +55,11 @@ public class GradebookStudent {
         }
         return getId() + " - " + getName() + " - " + averageGrade(); 
     }
+    public void printGrades(){
+        for (GradeItem g : grades) {
+            System.out.println(g.toString());
+        }
+    }
 
     
 }
