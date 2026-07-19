@@ -10,6 +10,7 @@ public class GradebookApp {
         GradebookManager gradebook = new GradebookManager();
         while(true){
             int choice;
+            System.out.println ("Choices: ");
             System.out.println ("1. Add Student");
             System.out.println ("2. Add Grade to Student");
             System.out.println ("3. View All Students");
@@ -18,6 +19,7 @@ public class GradebookApp {
             System.out.println ("6. Load Data From Fiile");
             System.out.println ("7. Save Data to File");
             System.out.println ("8. Exit");
+            System.out.println ("Enter Choice: ");
             try{
                 choice = input.nextInt();
             }catch (InputMismatchException e){
@@ -27,6 +29,10 @@ public class GradebookApp {
             if (choice < 1 || choice > 8){
                 System.out.println("Invalid input. Please enter a number from 1-8.");
                 continue;
+            }
+            if (choice == 8){
+                System.out.println("Goodbye");
+                break;
             }
             int id;
             String name;
@@ -120,7 +126,7 @@ public class GradebookApp {
             System.out.println("Invalid input for the field, retry action");
             continue;
         }
-            input.close();
         }
+        input.close();
     }
 }
