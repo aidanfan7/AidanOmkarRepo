@@ -8,26 +8,28 @@ public class GradebookApp {
         System.out.println ("(no students yet)");
         Scanner input = new Scanner(System.in);
         GradebookManager gradebook = new GradebookManager();
+        int choice = 0;
+        // try {
         while(true){
-            int choice;
-            System.out.println ("Choices: ");
-            System.out.println ("1. Add Student");
-            System.out.println ("2. Add Grade to Student");
-            System.out.println ("3. View All Students");
-            System.out.println ("4. View Student Details");
-            System.out.println ("5. Search Student By ID");
-            System.out.println ("6. Load Data From Fiile");
-            System.out.println ("7. Save Data to File");
-            System.out.println ("8. Exit");
-            System.out.println ("Enter Choice: ");
-            try{
-                choice = input.nextInt();
-            }catch (InputMismatchException e){
-                System.out.println("Invalid input. Please enter a number from 1-8.");
-                continue;
-            }
-            if (choice < 1 || choice > 8){
-                System.out.println("Invalid input. Please enter a number from 1-8.");
+                try{
+                    System.out.println ("Choices: ");
+                    System.out.println ("1. Add Student");
+                    System.out.println ("2. Add Grade to Student");
+                    System.out.println ("3. View All Students");
+                    System.out.println ("4. View Student Details");
+                    System.out.println ("5. Search Student By ID");
+                    System.out.println ("6. Load Data From Fiile");
+                    System.out.println ("7. Save Data to File");
+                    System.out.println ("8. Exit");
+                    System.out.println ("Enter Choice: ");
+                    choice = input.nextInt();
+                }catch (InputMismatchException e){
+                    System.out.println("Invalid input1. Please enter a number from 1-8.");
+                    input.nextLine();
+                    continue;
+                }
+            if (choice < 0 || choice > 8){
+                System.out.println("Invalid input2. Please enter a number from 1-8.");
                 continue;
             }
             if (choice == 8){
@@ -135,6 +137,9 @@ public class GradebookApp {
             continue;
         }
         }
+    // }catch (InputMismatchException e){
+    //     System.out.println("Invalid menu choice");
+    // }
         input.close();
     }
 }
