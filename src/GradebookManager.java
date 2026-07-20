@@ -63,6 +63,7 @@ public class GradebookManager {
         }
         GradeItem newGrade = new GradeItem(gradetitle, grade);
         findById(studentid).addGrade(newGrade);
+        System.out.println("Grade added succesfully");
     }
     public void loadData(String path){
         int studentsloaded = 0;

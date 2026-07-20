@@ -17,7 +17,7 @@ public class GradebookApp {
                     System.out.println ("3. View All Students");
                     System.out.println ("4. View Student Details");
                     System.out.println ("5. Search Student By ID");
-                    System.out.println ("6. Load Data From Fiile");
+                    System.out.println ("6. Load Data From File");
                     System.out.println ("7. Save Data to File");
                     System.out.println ("8. Exit");
                     System.out.println ("Enter Choice: ");
@@ -27,7 +27,7 @@ public class GradebookApp {
                     input.nextLine();
                     continue;
                 }
-            if (choice < 0 || choice > 8){
+            if (choice < 1 || choice > 8){
                 System.out.println("Invalid input. Please enter a number from 1-8.");
                 continue;
             }
@@ -49,7 +49,8 @@ public class GradebookApp {
                         continue;
                     }
                     System.out.println("Enter Student name: ");
-                    name = input.next().trim();
+                    input.nextLine();
+                    name = input.nextLine().trim();
                     if(gradebook.addStudent(id, name)){
                         System.out.println("Student addes successfully");
                     }
@@ -69,7 +70,8 @@ public class GradebookApp {
                         continue;
                     }
                     System.out.println("Enter Grade Title: ");
-                    gradetitle = input.next().trim();
+                    input.nextLine();
+                    gradetitle = input.nextLine().trim();
                     System.out.println("Enter Score: ");
                     gradescore = input.nextDouble();
                     if (gradescore < 0.0 || gradescore > 100.0){
@@ -82,7 +84,7 @@ public class GradebookApp {
                     continue;
                 case 3:
                     if (gradebook.getSize() <= 0){
-                        System.out.println("No Students yet, cannot print them");
+                        System.out.println("No students in the gradebook yet.\n" + "Add a student or load data first.");
                         continue;
                     }
                     gradebook.printAll();
@@ -101,6 +103,7 @@ public class GradebookApp {
                         System.out.println();
                         System.out.println("Grades: ");
                         gradebook.findById(id).printGrades();
+                        System.out.println("Average: " +gradebook.findById(id).averageGrade());
                     }
                     continue;
                 case 5:
@@ -113,7 +116,7 @@ public class GradebookApp {
                     else{
                         System.out.println("Found: ");
                         System.out.println(gradebook.findById(id).getId()  + " - " + gradebook.findById(id).getName());
-                        System.out.println ("Average: " + gradebook.findById(id).averageGrade());
+                        System.out.printf ("Average: " + "%.2f%n", gradebook.findById(id).averageGrade());
                     }
                     continue;
                 case 6:
@@ -121,7 +124,7 @@ public class GradebookApp {
                     continue;
                 case 7:
                     if (gradebook.getSize() <= 0){
-                        System.out.println("No Students yet, cannot load them");
+                        System.out.println("No gradebook data to save yet.");
                         continue;
                     }
                     try{
@@ -136,7 +139,7 @@ public class GradebookApp {
                     System.out.println("Goodbye");
                     break;
             }
-        }catch(InputMismatchException e){
+        }catch(IllegalArgumentException e){
             System.out.println("Invalid input for the field, retry action");
             continue;
         }

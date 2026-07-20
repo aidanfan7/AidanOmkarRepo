@@ -51,11 +51,15 @@ public class GradebookStudent {
     @Override
     public String toString(){
         if (averageGrade() == 0.0){
-            return getId() + " - " + getName() + " - " + averageGrade() + " (no grades yet)";
+            return getId() + " - " + getName() + " - " + " Average: " + averageGrade() + " (no grades yet)";
         }
-        return getId() + " - " + getName() + " - " + averageGrade(); 
+        return getId() + " - " + getName() + " - " + " Average: " + averageGrade(); 
     }
     public void printGrades(){
+        if (grades.isEmpty()){
+            System.out.println("no grades yet");
+            return;
+        }
         for (GradeItem g : grades) {
             System.out.println(g.toString());
         }
